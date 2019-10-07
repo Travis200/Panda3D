@@ -29,8 +29,9 @@ class MyApp(ShowBase):
         self.scene.setPos(-8, 42, 0)
 
         # Add the spinCameraTask procedure to the task manager.
+        self.pandaSound = self.loader.loadSfx("panda_sound_2.wav")
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
-
+        self.taskMgr.add(self.audio, "Panda Sound")
         # Load and transform the panda actor.
         self.pandaActor = Actor("models/panda-model",
                                 {"walk": "models/panda-walk4"})
@@ -45,9 +46,13 @@ class MyApp(ShowBase):
         angleRadians = angleDegrees * (pi / 180.0)
         self.camera.setPos(20 * sin(angleRadians), -20.0 * cos(angleRadians), 3)
         self.camera.setHpr(angleDegrees, 0, 0)
-        return Task.cont
-winsound.PlaySound("panda_sound_2", winsound.SND_FILENAME)
 
+        return Task.cont
+
+    def audio(self, task):
+        if self.pandaSound.status() != self.pandaSound.PLAYING:
+            self.pandaSound.play()
+        return Task.cont
 
 app = MyApp()
 app.run()
