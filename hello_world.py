@@ -28,8 +28,10 @@ class MyApp(ShowBase):
         self.scene.setScale(0.25, 0.25, 0.25)
         self.scene.setPos(-8, 42, 0)
 
-        # Add the spinCameraTask procedure to the task manager.
+        # This is how loaded the panda sound. I got this by manipulating the code
+        # found on the panda3d website (https://www.panda3d.org/manual/?title=Loading_and_Playing_Sounds_and_Music)
         self.pandaSound = self.loader.loadSfx("panda_sound_2.wav")
+        # Add the spinCameraTask procedure to the task manager.
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
         self.taskMgr.add(self.audio, "Panda Sound")
         # Load and transform the panda actor.
@@ -46,9 +48,8 @@ class MyApp(ShowBase):
         angleRadians = angleDegrees * (pi / 180.0)
         self.camera.setPos(20 * sin(angleRadians), -20.0 * cos(angleRadians), 3)
         self.camera.setHpr(angleDegrees, 0, 0)
-
         return Task.cont
-
+    #This is how I got the panda sound to play constantly (not just once)
     def audio(self, task):
         if self.pandaSound.status() != self.pandaSound.PLAYING:
             self.pandaSound.play()
