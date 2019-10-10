@@ -1,6 +1,5 @@
 import sys
 import platform
-import winsound
 
 
 print("hello")
