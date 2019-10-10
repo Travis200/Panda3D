@@ -31,9 +31,9 @@ class MyApp(ShowBase):
         # This is how loaded the panda sound. I got this by manipulating the code
         # found on the panda3d website (https://www.panda3d.org/manual/?title=Loading_and_Playing_Sounds_and_Music)
         self.pandaSound = self.loader.loadSfx("panda_sound_2.wav")
+        self.taskMgr.add(self.audio, "Panda Sound")
         # Add the spinCameraTask procedure to the task manager.
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
-        self.taskMgr.add(self.audio, "Panda Sound")
         # Load and transform the panda actor.
         self.pandaActor = Actor("models/panda-model",
                                 {"walk": "models/panda-walk4"})
@@ -50,7 +50,7 @@ class MyApp(ShowBase):
         self.camera.setHpr(angleDegrees, 0, 0)
         return Task.cont
 
-    #This is how I got the panda sound to play constantly (not just once)
+    #This is how I got the panda sound to play repeatedly (not just once)
     def audio(self, task):
         if self.pandaSound.status() != self.pandaSound.PLAYING:
             self.pandaSound.play()
