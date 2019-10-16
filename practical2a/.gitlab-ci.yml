@@ -1,0 +1,10 @@
+image: "python:3.7"
+
+before_script:
+  - export PATH="/root/.local/bin:$PATH"
+  - pip install --user pipenv
+  - pipenv update --dev
+
+build:
+  script:
+    - echo "Success"
